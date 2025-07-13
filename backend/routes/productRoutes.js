@@ -14,6 +14,7 @@ router.post('/',async(request,response)=>{
         const newProduct = {
             name : request.body.name,
             price : request.body.price,
+            description : request.body.description,
             image : request.body.image,
             category : request.body.category
         }

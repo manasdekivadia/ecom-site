@@ -16,10 +16,17 @@ const EditProduct = () => {
   const {id} = useParams();
   const {enqueueSnackbar} = useSnackbar();
 
+  const token = localStorage.getItem('token');
+  const config = {
+      headers : {
+          'Authorization' : `Bearer ${token}`,
+          'Content-Type' : 'application/json'
+      }
+  };
   useEffect(()=>{
     setLoading (true);
     axios
-      .get(`http://localhost:3000/product/${id}`)
+      .get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/product/${id}`)
       .then((response)=>{
         setName(response.data.name);
         setPrice(response.data.price);
@@ -39,7 +46,7 @@ const EditProduct = () => {
     const data = {name, price ,description,category};
     setLoading(true);
     axios
-      .put(`http://localhost:3000/product/${id}`,data)  
+      .put(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/product/${id}`,data,config)  
       .then(()=>{
         setLoading(false);
         enqueueSnackbar('Product Edited Succesfully',{variant:'success'});
@@ -54,7 +61,6 @@ const EditProduct = () => {
 
   return (
         <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 flex justify-center items-center p-4">
-          {loading && <Spinner/>}
       <div className="w-full max-w-2xl bg-white shadow-2xl rounded-2xl p-8 space-y-6">
         
         <Link

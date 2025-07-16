@@ -9,12 +9,18 @@ const DeleteProduct = () => {
   const navigate =useNavigate();
   const {id} = useParams();
   const {enqueueSnackbar} = useSnackbar();
-
+  const token = localStorage.getItem('token');
+  const config = {
+      headers : {
+          'Authorization' : `Bearer ${token}`,
+          'Content-Type' : 'application/json'
+      }
+  };
   const handleDeleteProduct = ()=>{
     setLoading(true);
 
     axios
-      .delete( `http://localhost:3000/product/${id}`)
+      .delete( `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/product/${id}`,config)
       .then (()=>{
         setLoading(false);
         enqueueSnackbar('Product Deleted Successfully', { variant: 'success' });
@@ -30,7 +36,6 @@ const DeleteProduct = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      {loading && < Spinner/>}
   <div className="max-w-md w-full bg-white rounded-xl shadow-md p-6">
     <Link
       to="/admin"

@@ -1,10 +1,12 @@
 import express, { application, request, response } from "express";
 import {Product} from  "../models/product.js";
+import {auth} from "../middleware/authMiddleware.js";
+
 
 const router = express.Router();
 
 
-router.post('/',async(request,response)=>{
+router.post('/',auth,async(request,response)=>{
     try{
 
         if(!request.body.name || !request.body.price || !request.body.image || !request.body.category){
@@ -64,7 +66,7 @@ router.get('/:id',async (request,response) =>{
 
 
 
-router.delete('/:id',async (request,response) =>{
+router.delete('/:id',auth,async (request,response) =>{
 
     try{
         const {id} = request.params;
@@ -83,7 +85,7 @@ router.delete('/:id',async (request,response) =>{
     }
 });
 
-router.put('/:id',async (request,response) =>{
+router.put('/:id',auth,async (request,response) =>{
 
     try{
         if(!request.body.name || !request.body.price || !request.body.category){

@@ -13,9 +13,20 @@ import {authRouter} from "./controllers/authController.js";
 config();
 
 const app = express();
+const allowedOrigins = [
+  'https://ecom-site-tlkb.vercel.app',
+  'https://ecom-site-tlkb-manas-dekivadias-projects.vercel.app' // your real deployed frontend URL on Vercel
+];
+
 app.use(cors({
-  origin: ["https://ecom-site-tlkb.vercel.app"],
-  credentials: true
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
 
 

@@ -57,7 +57,7 @@ router.get('/api/stats',async (req,res)=>{
     try {
         const balance = await stripe.balance.retrieve();
 
-        console.log('Balance Object :',JSON.stringify(balance,null,2));  
+        //console.log('Balance Object :',JSON.stringify(balance,null,2));  
         const conversionRate = 83.5; 
         const availableBalanceUSD = balance.available.find(b=>b.currency ==='usd');
         const pendingBalanceUSD = balance.pending.find(b=>b.currency === 'usd');

@@ -13,7 +13,11 @@ import {authRouter} from "./controllers/authController.js";
 config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ["https://ecom-site-tlkb.vercel.app"],
+  credentials: true
+}));
+
 
 
 app.listen(process.env.PORT,()=>{
